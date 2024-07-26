@@ -8,12 +8,84 @@
 
 body {
     min-height: 100vh;
-    background: linear-gradient(to right, #f9ce5f, #fdf66e);
+    background: linear-gradient(to right, #f8d47c, #faf6a9);
     font-family: Arial, Helvetica, sans-serif;
     padding: clamp(20px, 5vw, 50px) 20px 20px; /**/
 }
 
 h1 {
-    font-size: 50px;
-    margin-bottom: 50px;
+    font-size: 60px;
+    margin-bottom: 90px;
+    font-weight: 300;
+    text-align: center;
+}
+
+h1 span {
+    font-weight: 600;
+}
+
+h1 span2 {
+    font-size: 15px;
+    font-weight: 900;
+    color: #ffc42e;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.input-group:nth-child(2) { /*pour détacher les deux inputs*/
+    margin-top: 40px;
+}
+
+.container label {
+    display: block; /*pour mettre les label au dessus des inputs*/
+    margin-bottom: 10px;
+    font-weight: 700;
+    font-size: 25px;
+
+}
+
+.container input {
+    display: block;
+    width : 100%;
+    border: none;
+    font-size: 22px;
+    padding: 5px;
+    border-radius: 10px;
+    box-shadow: 0 5px 5px rgba(0,0,0,0.2);
+}
+
+.btns-container {
+    display: flex;
+    justify-content:center; /*centrer les boutons*/
+    margin-top: 45px;
+}
+
+form button {
+    font-size: 20px;
+    min-width: 100px;
+    cursor: pointer; /*curseur en main*/
+    padding: 10px 20px;
+    border : none;
+    margin-left: 20px;
+    border-radius:  30px;
+    color: rgb(0, 0, 0);
+    background: linear-gradient(to right, #ffa44f, #f9d587);
+
+}
+
+.info-txt {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 18px;
+
+}
+
+footer {
+    /*mettre le footer au milieu en bas de page :*/
+    position: fixed;
+    bottom: 5%;
+    left: 45%;
 }
