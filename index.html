@@ -1,4 +1,4 @@
-!<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -7,18 +7,47 @@
     <link rel="stylesheet" href="style.css" /> 
 </head>
 <body>
+
+    <h1> Creation de <span>Cookies</span> 🍪 (pas celui là)</h1>
+
     <div class="container">
         <form> 
             <div class="input-group">
-                <label for="ID">ID</label>
-                <input type="text"
-                id="ID"
+                <label for="name">Nom</label>
+                <input 
+                type="text"
+                id="name"
                 autocomplete="off"
                 required
-                >koà
+                >
             </div>
+            <div class="input-group">
+                <label for="value">Valeur</label>
+                <input 
+                type="text"
+                id="value"
+                autocomplete="off"
+                required
+                >
+            </div>
+
+            <div class="btns-container">
+                <button type="submit" class="create-cookie-btn">Créer</button>
+                <button type="button" class="display-cookie-btn">Afficher</button>
+            </div>
+            <!-- le type submit permet de soumettre le formulaire 
+             et le type button a une fonctionalité -->
         </form>
+
+        <p class="info-text"></p>
+        <ul class="cookies-list">
+
+        </ul>
+
     </div>
-    <script src="app.js"></script>
+
+    <div class="toasts-container"></div> <!--toast en bas a droite-->
+
+    <script src="app.js"></script> 
 </body>
 </html>

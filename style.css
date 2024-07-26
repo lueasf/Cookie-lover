@@ -8,7 +8,12 @@
 
 body {
     min-height: 100vh;
-    background: #f1f1f1;
+    background: linear-gradient(to right, #f9ce5f, #fdf66e);
     font-family: Arial, Helvetica, sans-serif;
     padding: clamp(20px, 5vw, 50px) 20px 20px; /**/
+}
+
+h1 {
+    font-size: 50px;
+    margin-bottom: 50px;
 }
