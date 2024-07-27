@@ -84,8 +84,7 @@ form button {
 }
 
 footer {
-    /*mettre le footer au milieu en bas de page :*/
-    position: fixed;
-    bottom: 5%;
-    left: 45%;
+    margin-top: auto; /* Pousse le footer en bas de la page */
+    text-align: center; /* Centre le contenu du footer horizontalement */
+    padding: 20px; /* Ajoute un peu de padding pour le style */
 }
