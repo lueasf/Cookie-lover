@@ -36,6 +36,7 @@ function handleForm(event){
     newCookie.expires = new Date(new Date().getTime() + 7*24*60*60*1000);
     // on store la meme date de création + 1 semaine pour ensuite comparer
 
+    cookieForm.reset(); // pour reset les inputs
     createCookie(newCookie);
 }
 
@@ -43,10 +44,10 @@ function handleForm(event){
 function createCookie(newCookie){
 
     if(doesCookieExist(newCookie.name)){
-        createToast();
+        createToast({name: newCookie.name, state: "modifié", color:"orangered"});
     }
     else {
-        createToast();
+        createToast({name: newCookie.name, state: "crée", color:"green"});
     }
 
     // créer le cookie:
@@ -60,12 +61,27 @@ function createCookie(newCookie){
     // ccl : on a crée un cookie avec son nom, sa valeur et sa date d'exp ss forme de str
 }
 
-// FUNC 4 CRÉER UN TOAST
+// FUNC 4 TEST D'EXISTENCE
 function doesCookieExist(name){
-    const cookies = document.cookie; // pour avoir les cookies ss forme de nom-valeur
-    console.log(cookies);
+    const cookies = document.cookie.replace(/\s/g,"").split(";"); // pour avoir les cookies ss forme de nom-valeur
+    const onlyCookiesName = cookies.map(cookie => cookie.split("=")[0]); // on recup les noms
+    console.log(cookies, onlyCookiesName); 
+    return onlyCookiesName.includes(name); // on regarde si le cookie existe
+    // plus long : 
+    // const cookiePresence = onlyCookiesName.find(cookie => cookie === encodeURIComponent(name));
+    // return cookiePresence; truthy ou falsy
+
 }
 
-function createToast(){
+const toastContainer = document.querySelector(".toasts-container");
 
+// FUNC 5 CREER TOAST
+function createToast({name, state, color}){
+    const toastInfo = document.createElement("p"); //on crée un ele p
+    toastInfo.className = "toast";
+    toastInfo.textContent = `Le cookie "${name}" a été ${state}.`;
+    toastInfo.style.backgroundColor = color;
+    toastContainer.appendChild(toastInfo); // on ajoute le p dans le container
+
+    setTimeout(() => {toastInfo.remove()}, 2500) // (fonction callback, temps en ms)
 }

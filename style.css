@@ -88,3 +88,18 @@ footer {
     text-align: center; /* Centre le contenu du footer horizontalement */
     padding: 20px; /* Ajoute un peu de padding pour le style */
 }
+
+.toasts-container {
+    position : fixed; 
+    bottom: 20px;
+    right: 20px;
+}
+
+.toast {
+    font-size: 17px;
+    color: #fff;
+    padding: 10px;
+    margin: 10px 0;
+    min-width: 150px;
+    border-radius: 2px;
+}
