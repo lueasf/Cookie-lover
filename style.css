@@ -89,6 +89,55 @@ footer {
     padding: 20px; /* Ajoute un peu de padding pour le style */
 }
 
+
+/*Liste de cookies*/
+.cookies-list{
+    font-size: 40px;
+    list-style-type:none;  /*pour enlever les puces*/
+    margin: 10px auto;
+    padding: 5px 0;
+    display:grid; /*pour afficher les cookies en grille*/ 
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /*pour remplir autnat qu'on peut*/
+    grid-gap: 20px; /*espace entre les cookies*/
+}
+
+/*cookie tab*/
+.cookies-list li { 
+    font-size: 18px;
+    padding: 10px;
+    border-radius: 10px;
+    background: #fff;
+    position: relative;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+
+}
+
+/*cookie info*/
+.cookies-list li p {
+    margin: 10px 0;
+}
+
+/*cookie values */
+.cookies-list li span {
+    font-weight: 600;
+}
+
+/*Bouton rouge à droite*/
+.cookies-list li button {
+    font-size: 12px;
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    top : 7px;
+    right : 7px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    background: crimson;
+    color: #fff;
+}
+
 .toasts-container {
     position : fixed; 
     bottom: 20px;

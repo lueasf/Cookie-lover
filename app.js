@@ -1,7 +1,7 @@
 const inputs = document.querySelectorAll("input");
 
 inputs.forEach(input => {
-    input.addEventListener("invalid",handleValidation);
+    input.addEventListener("invalid",handleValidation); 
     input.addEventListener("input",handleValidation);
 })
 
@@ -21,8 +21,8 @@ cookieForm.addEventListener("submit",handleForm);
 
 
 // FUNC 2 GÈRE L'INPUT
-function handleForm(event){
-    event.preventDefault();
+function handleForm(e){
+    e.preventDefault();
 
     const newCookie = {}; // objet vide
 
@@ -40,6 +40,7 @@ function handleForm(event){
     createCookie(newCookie);
 }
 
+
 // FUNC 3 STORE LES COOKIES
 function createCookie(newCookie){
 
@@ -47,7 +48,7 @@ function createCookie(newCookie){
         createToast({name: newCookie.name, state: "modifié", color:"orangered"});
     }
     else {
-        createToast({name: newCookie.name, state: "crée", color:"green"});
+        createToast({name: newCookie.name, state: "créé", color:"green"});
     }
 
     // créer le cookie:
@@ -59,21 +60,24 @@ function createCookie(newCookie){
     // un objet et non une str.
 
     // ccl : on a crée un cookie avec son nom, sa valeur et sa date d'exp ss forme de str
+
+    if(cookiesList.children.length) displayCookies(); // on affiche en continu les cookies
 }
+
 
 // FUNC 4 TEST D'EXISTENCE
 function doesCookieExist(name){
     const cookies = document.cookie.replace(/\s/g,"").split(";"); // pour avoir les cookies ss forme de nom-valeur
     const onlyCookiesName = cookies.map(cookie => cookie.split("=")[0]); // on recup les noms
-    console.log(cookies, onlyCookiesName); 
-    return onlyCookiesName.includes(name); // on regarde si le cookie existe
-    // plus long : 
-    // const cookiePresence = onlyCookiesName.find(cookie => cookie === encodeURIComponent(name));
-    // return cookiePresence; truthy ou falsy
+    // console.log(cookies, onlyCookiesName); 
+    
+    const cookiePresence = onlyCookiesName.find(cookie => cookie === encodeURIComponent(name));
+    return cookiePresence; 
 
 }
 
 const toastContainer = document.querySelector(".toasts-container");
+
 
 // FUNC 5 CREER TOAST
 function createToast({name, state, color}){
@@ -84,4 +88,72 @@ function createToast({name, state, color}){
     toastContainer.appendChild(toastInfo); // on ajoute le p dans le container
 
     setTimeout(() => {toastInfo.remove()}, 2500) // (fonction callback, temps en ms)
+}
+
+const cookiesList = document.querySelector(".cookies-list");
+const displayCookieBtn = document.querySelector(".display-cookie-btn");
+const infoTxt = document.querySelector(".info-txt");
+
+displayCookieBtn.addEventListener("click",displayCookies);
+
+
+
+let lock = false; // empeche les pb d'affichage
+// FUNC 6 AFFICHER LES COOKIES
+function displayCookies(){
+
+    if(cookiesList.children.length) cookiesList.textContent = ""; 
+    // on reset la liste pour pas afficher pls fois le mm cookie.
+
+
+    const cookies = document.cookie.replace(/\s/g,"").split(";").reverse();
+
+    if(!cookies[0]){
+        if(lock) return;
+    
+        lock = true;
+        infoTxt.textContent = "pas de cookies";
+    
+        setTimeout(() => {infoTxt.textContent = ""; lock = false;}, 1500); // on reset le txt
+        return;
+    }
+
+    createElements(cookies);
+}
+
+
+// FUNC 7 CRÉER DES TABS
+function createElements(cookies){
+    // createElements et createElement sont différentes
+    
+    // créer la liste
+    cookies.forEach(cookie => {
+        const formatCookie = cookie.split("=");
+        const listItem = document.createElement("li"); // on crée un li (un élément de liste)
+        const name = decodeURIComponent(formatCookie[0]);
+
+        listItem.innerHTML= `
+        <p>
+           <span>Nom</span>: ${name}
+        </p>
+        <p>
+            <span>Valeur</span>: ${decodeURIComponent(formatCookie[1])}
+        </p>
+        <button>X</button>
+        `; // on ajoute du contenu au Li avec innerHTML pour chaque cookie
+    
+        // créer un addEventListener pour la X:
+        listItem.querySelector("button").addEventListener("click", e => {
+            createToast({name: name, state: "supprimé", color: "crimson"})
+
+            // et on détruit le cookie avec :
+            document.cookie = `${formatCookie[0]}=; expires=${new Date(0)}`
+            // on met le nom du cookie =... et ça expire car new Date(0) = 1er janvier 1970.
+
+            // on supprime le li
+            e.target.parentElement.remove()
+
+        })
+        cookiesList.appendChild(listItem); // on l'add
+    })
 }
